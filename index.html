@@ -5,9 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Service Worker</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="main.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            console.log('service worker');
+            navigator.serviceWorker.register('service-worker.js');
+        }
+    </script>
 </head>
 <body>
-    <h1>Hello service</h1>
+    <h1>Hello service!</h1>
 </body>
 </html>
