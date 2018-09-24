@@ -40,11 +40,13 @@ self.addEventListener('install', event => {
   event.waitUntil(
     // We can't use cache.add() here, since we want OFFLINE_URL to be the cache key, but
     // the actual URL we end up requesting might include a cache-busting parameter.
-    fetch(createCacheBustedRequest(OFFLINE_URL)).then(function(response) {
-      return caches.open(CURRENT_CACHES.offline).then(function(cache) {
-        return cache.put(OFFLINE_URL, response);
-      });
-    })
+    fetch(createCacheBustedRequest(OFFLINE_URL))
+        .then(function(response) {
+                return caches.open(CURRENT_CACHES.offline)
+                .then(function(cache) {
+                    return cache.put(OFFLINE_URL, response);
+                });
+        })
   );
 });
 
@@ -52,8 +54,9 @@ self.addEventListener('activate', event => {
   // Delete all caches that aren't named in CURRENT_CACHES.
   // While there is only one cache in this example, the same logic will handle the case where
   // there are multiple versioned caches.
-  let expectedCacheNames = Object.keys(CURRENT_CACHES).map(function(key) {
-    return CURRENT_CACHES[key];
+  let expectedCacheNames = 
+    Object.keys(CURRENT_CACHES).map(function(key) {
+        return CURRENT_CACHES[key];
   });
 
   event.waitUntil(
